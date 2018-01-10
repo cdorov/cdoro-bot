@@ -10,6 +10,16 @@ var users = require('./routes/users');
 
 const TelegramBot = require('node-telegram-bot-api');
 
+var firebase = require('firebase');
+
+var config = {
+  apiKey: "",
+  authDomain: "",
+  databaseURL: "",
+  storageBucket: "",
+};
+firebase.initializeApp(config);
+
 const token = '';
 
 // Create a bot that uses 'polling' to fetch new updates
@@ -25,7 +35,7 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   const resp = match[1]; // the captured "whatever"
 
   // send back the matched "whatever" to the chat
-  bot.sendMessage(chatId, resp);
+  bot.sendMessage(chatId, resp + msg.chat.id);
 });
 
 var app = express();
